@@ -9,11 +9,10 @@ package Modelo;
  *
  * @author artairg
  */
-public class vehiculo {
+public abstract class vehiculo {
     String marca,matricula,fecha;
     int kilometros;
     double precio;
-
     public vehiculo() {
     }
 
