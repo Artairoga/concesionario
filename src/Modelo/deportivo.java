@@ -32,6 +32,9 @@ public class deportivo extends vehiculo {
     public String toString() {
         return "deportivo{" + "cilindrada=" + cilindrada +" informacion general:" + super.toString()+'}';
     }
-    
+    @Override
+    public String visualizarBonito(){
+        return "Tipo de vehiculo=Deportivo"+", marca= " + marca + ", matricula=" + matricula + ", fecha=" + fecha + ", kilometros=" + kilometros + ", precio=" + precio +", CentrimetosCubicos=" +cilindrada;
+    }
     
 }

@@ -69,5 +69,5 @@ public class cliente implements Comparable<cliente> {
     public String toString() {
         return "cliente{" + "dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", vehiculos=" + vehiculos + '}';
     }
-
+    
 }

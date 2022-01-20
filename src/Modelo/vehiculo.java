@@ -69,5 +69,11 @@ public abstract class vehiculo {
         return "vehiculo{" + "marca=" + marca + ", matricula=" + matricula + ", fecha=" + fecha + ", kilometros=" + kilometros + ", precio=" + precio + '}';
     }
     
+    public String visualizarBonito(){
+        return "vehiculo{" + "marca=" + marca + ", matricula=" + matricula + ", fecha=" + fecha + ", kilometros=" + kilometros + ", precio=" + precio + '}';
+    }
+    public String visualizarPadre(){
+        return "vehiculo{" + "marca=" + marca + ", matricula=" + matricula + ", fecha=" + fecha + ", kilometros=" + kilometros + ", precio=" + precio + '}';
+    }
     
 }

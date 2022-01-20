@@ -10,7 +10,8 @@ package Modelo;
  * @author artairg
  */
 public class furgoneta extends vehiculo {
-    int carga,volumen;
+
+    int carga, volumen;
 
     public furgoneta() {
     }
@@ -39,8 +40,12 @@ public class furgoneta extends vehiculo {
 
     @Override
     public String toString() {
-        return "furgoneta{" + "carga=" + carga + ", volumen=" + volumen + " informacion general:"+ super.toString()+'}';
+        return "furgoneta{" + "carga=" + carga + ", volumen=" + volumen + " informacion general:" + super.toString() + '}';
     }
 
-    
+    @Override
+    public String visualizarBonito() {
+        return "Tipo de vehiculo=Furgoneta" + ", marca= " + marca + ", matricula=" + matricula + ", fecha=" + fecha + ", kilometros=" + kilometros + ", precio=" + precio + ", Carga=" + carga+", Volumen="+volumen;
+    }
+
 }

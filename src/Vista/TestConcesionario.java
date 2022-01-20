@@ -31,7 +31,7 @@ public class TestConcesionario {
         c2.getVehiculos().add(new deportivo(0, "marca", "matricula3", "fecha", 0, 0));
         ListaClientes.add(c2);
         cliente c3 = new cliente(3, "c3", "aodriguez");
-        c3.getVehiculos().add(new furgoneta(0, 0, "marca", "matricula43", "fecha", 0, 0));
+        c3.getVehiculos().add(new furgoneta(0, 0, "marca", "matricula4", "fecha", 0, 0));
         ListaClientes.add(c3);
 
         do {

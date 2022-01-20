@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 public class Controlador {
 
     public static void CrearCliente(ArrayList<cliente> ListaClientes) {
-        //preguntar dni nombre apellidos devolver cliente 
+        //preguntar dni nombre apellidos devolver cliente
         String nombre, apellidos;
         int dni;
         dni = Integer.parseInt(JOptionPane.showInputDialog("Que dni tiene el nuevo cliente?"));
@@ -84,6 +84,7 @@ public class Controlador {
 
     public static void MenuVehiculos(ArrayList<cliente> listaClientes, cliente Cliente) {
         int decision = 0;
+        String matricula;
         do {
             decision = Integer.parseInt(IntroducirDatos("1. Nuevo Vehículo\n"
                     + "2. Listar Vehículos:\n"
@@ -96,19 +97,24 @@ public class Controlador {
                 case 1: {
                     //crear vehiculo(metodo) devuelva el vehiculo//null
                     Cliente.getVehiculos().add(CrearVehiculo(listaClientes));
-
                     break;
                 }
                 case 2: {//listar vehiculos
+                    ListarVehiculos(Cliente);
                     break;
                 }
                 case 3: {//buscar vehiculo
+                    matricula = JOptionPane.showInputDialog("Matricula a buscar?");//meter esto dentro del metodo
+                    BuscarVehiculos(listaClientes, matricula);
                     break;
                 }
                 case 4: {//modificar kms vehiculo
+                    //meter esto dentro del metodo
+                    ModificarKMVehiculo(listaClientes);
                     break;
                 }
                 case 5: {//eliminar vehiculo
+                    EliminarVehiculo(listaClientes);
                     break;
                 }
                 case 6: {//volver al menu anterior!
@@ -123,47 +129,95 @@ public class Controlador {
         String marca, matricula, fecha;
         int kilometros, n_puertas, carga, volumen;
         double precio, cc;
-        
+        char decision;
+
         //chekear que la matricula no existe
         do {
             matricula = JOptionPane.showInputDialog("Matricula?");
-        } while (CheckMatricula(listaClientes, matricula));
+        } while (!Objects.isNull(CheckMatricula(listaClientes, matricula)));//si es null significa que no existe
         //preguntar informacion general
-        marca = JOptionPane.showInputDialog("Marca?");
-        fecha = JOptionPane.showInputDialog("Fecha de matriculacion?");
-        kilometros = Integer.parseInt(JOptionPane.showInputDialog("Kilometros"));
-        precio = Double.parseDouble(JOptionPane.showInputDialog("Precio?"));
-        switch ((JOptionPane.showInputDialog(null, "T:Turismo D:Deportivo F:Furgoneta")).toUpperCase().charAt(0)) {
+        while (true) {
+            marca = JOptionPane.showInputDialog("Marca?");
+            fecha = JOptionPane.showInputDialog("Fecha de matriculacion?");
+            kilometros = Integer.parseInt(JOptionPane.showInputDialog("Kilometros"));
+            precio = Double.parseDouble(JOptionPane.showInputDialog("Precio?"));
+            decision = JOptionPane.showInputDialog(null, "T:Turismo D:Deportivo F:Furgoneta").toUpperCase().charAt(0);
+            switch (decision) {
+                case 'T': {
+                    //preguntar informacion especifica
+                    n_puertas = Integer.parseInt(JOptionPane.showInputDialog("Cuantas puertas tiene el turismo?"));
+                    return new turismo(n_puertas, marca, matricula, fecha, kilometros, precio);
+                }
+                case 'D': {
+                    cc = Double.parseDouble(JOptionPane.showInputDialog("Cuanta cc tiene el deportivo?"));
+                    return new deportivo(cc, marca, matricula, fecha, kilometros, precio);
+                }
+                case 'F': {
+                    carga = Integer.parseInt(JOptionPane.showInputDialog("Cuanta carga tiene la furgoneta?"));
+                    volumen = Integer.parseInt(JOptionPane.showInputDialog("Cuanta volumen tiene la furgoneta?"));
+                    return new furgoneta(carga, volumen, marca, matricula, fecha, kilometros, precio);
+                }
+            }
+        }
+    }
 
-            case 'T': {
-                //preguntar informacion especifica
-                n_puertas = Integer.parseInt(JOptionPane.showInputDialog("Cuantas puertas tiene el turismo?"));
-                return new turismo(n_puertas, marca, matricula, fecha, kilometros, precio);
-            }
-            case 'D': {
-                cc = Double.parseDouble(JOptionPane.showInputDialog("Cuanta cc tiene el deportivo?"));
-                return new deportivo(cc, marca, matricula, fecha, kilometros, precio);
-            }
-            case 'F': {
-                carga = Integer.parseInt(JOptionPane.showInputDialog("Cuanta carga tiene la furgoneta?"));
-                volumen = Integer.parseInt(JOptionPane.showInputDialog("Cuanta volumen tiene la furgoneta?"));
-                return new furgoneta(carga, volumen, marca, matricula, fecha, kilometros, precio);
+    public static vehiculo CheckMatricula(ArrayList<cliente> listaClientes, String matricula) {//cambiar boolean por devolver vehiculo que existe :D
+        //se podria implementat busqueda dicotomica ordenando los arrays por id
+        for (cliente listaC : listaClientes) {
+            for (vehiculo listaV : listaC.getVehiculos()) {
+                if (listaV.getMatricula().equals(matricula)) {
+                    return listaV;
+                }
             }
         }
         return null;
     }
 
-    public static boolean CheckMatricula(ArrayList<cliente> listaClientes, String matricula) {//cambiar boolean por devolver vehiculo que existe :D
-        //se podria implementat busqueda dicotomica ordenando los arrays por id
-        boolean existe = false;
-        for (int i = 0; i < listaClientes.size()-1; i++) {
-            for (int j = 0; j < listaClientes.get(i).getVehiculos().size()-1; j++) {
-                if (listaClientes.get(i).getVehiculos().get(j).getMatricula().equals(matricula)) {
-                    existe = true;
-                    break;
-                }
+    public static void ListarVehiculos(cliente Cliente) {//esto se tiene que hacer mejor por cojones
+        ArrayList<vehiculo> ListaVehiculos = Cliente.getVehiculos();
+        for (vehiculo listaV : Cliente.getVehiculos()) {
+            if (listaV instanceof turismo) {
+                System.out.println(listaV.visualizarBonito());
             }
         }
-        return existe;
+        for (vehiculo listaV : Cliente.getVehiculos()) {
+            if (listaV instanceof deportivo) {
+                System.out.println(((deportivo) listaV).visualizarBonito());
+            }
+        }
+        for (vehiculo listaV : Cliente.getVehiculos()) {
+            if (listaV instanceof furgoneta) {
+                System.out.println(((furgoneta) listaV).visualizarBonito());
+            }
+        }
+
     }
+
+    private static void BuscarVehiculos(ArrayList<cliente> listaClientes, String matricula) {
+        if (Objects.isNull(CheckMatricula(listaClientes, matricula))) {
+            JOptionPane.showMessageDialog(null, "No existe vehículo con la matrícula introducida");
+        } else {
+            System.out.println((CheckMatricula(listaClientes, matricula)).visualizarPadre());
+        }
+    }
+
+    public static void ModificarKMVehiculo(ArrayList<cliente> listaClientes) {
+        String matricula = JOptionPane.showInputDialog("Matricula a buscar?");
+        int kilometros=Integer.parseInt(JOptionPane.showInputDialog("Nuevos KM"));
+        if (Objects.isNull(CheckMatricula(listaClientes, matricula))) {
+            JOptionPane.showMessageDialog(null, "No existe vehículo con la matrícula introducida");
+        } else {
+            CheckMatricula(listaClientes, matricula).setKilometros(kilometros);
+        }
+    }
+
+    private static void EliminarVehiculo(ArrayList<cliente> listaClientes) {
+        String matricula = JOptionPane.showInputDialog("Matricula a buscar?");
+        if (Objects.isNull(CheckMatricula(listaClientes, matricula))) {
+            JOptionPane.showMessageDialog(null, "No existe vehículo con la matrícula introducida");
+        } else {
+            
+        }
+    }
+
 }
