@@ -6,6 +6,8 @@
 package Modelo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  *
@@ -13,28 +15,27 @@ import java.util.ArrayList;
  */
 public class cliente implements Comparable<cliente> {
 
-    String  nombre, apellido;
-    int dni;
+    String nombre, apellido, dni;
     ArrayList<vehiculo> vehiculos = new ArrayList<>();
 
     public cliente() {
     }
 
-    public cliente(int dni, String nombre, String apellido) {
+    public cliente(String dni, String nombre, String apellido) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.vehiculos = vehiculos;
     }
 
-    public cliente(int dni, String nombre, String apellido, ArrayList<vehiculo> vehiculos) {
+    public cliente(String dni, String nombre, String apellido, ArrayList<vehiculo> vehiculos) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.vehiculos = vehiculos;
     }
 
-    public int getDni() {
+    public String getDni() {
         return dni;
     }
 
@@ -53,21 +54,14 @@ public class cliente implements Comparable<cliente> {
     public void setVehiculos(ArrayList<vehiculo> vehiculo) {
         this.vehiculos = vehiculo;
     }
-    
-    public int compareTo(cliente a) {//ordenar lista por enteros
-        if (dni < a.dni) {
-            return -1;
-        } else if (dni == a.dni) {
-            return 0;
-        } else {
-            return 1;
-
-        }
-    }
 
     @Override
     public String toString() {
         return "cliente{" + "dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", vehiculos=" + vehiculos + '}';
     }
-    
+
+    @Override
+    public int compareTo(cliente o) {
+        return dni.compareTo(o.dni);
+    }
 }

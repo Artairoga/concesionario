@@ -5,6 +5,8 @@
  */
 package Modelo;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author artairg
@@ -15,7 +17,7 @@ public class deportivo extends vehiculo {
     public deportivo() {
     }
 
-    public deportivo(double cilindrada, String marca, String matricula, String fecha, int kilometros, double precio) {
+    public deportivo(double cilindrada, String marca, String matricula,LocalDate fecha, int kilometros, double precio) {
         super(marca, matricula, fecha, kilometros, precio);
         this.cilindrada = cilindrada;
     }

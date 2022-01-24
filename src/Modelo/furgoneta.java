@@ -5,6 +5,8 @@
  */
 package Modelo;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author artairg
@@ -16,7 +18,7 @@ public class furgoneta extends vehiculo {
     public furgoneta() {
     }
 
-    public furgoneta(int carga, int volumen, String marca, String matricula, String fecha, int kilometros, double precio) {
+    public furgoneta(int carga, int volumen, String marca, String matricula, LocalDate fecha, int kilometros, double precio) {
         super(marca, matricula, fecha, kilometros, precio);
         this.carga = carga;
         this.volumen = volumen;

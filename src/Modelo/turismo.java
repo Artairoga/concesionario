@@ -5,6 +5,8 @@
  */
 package Modelo;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author artairg
@@ -15,7 +17,7 @@ public class turismo extends vehiculo{
     public turismo() {
     }
 
-    public turismo(int n_puertas, String marca, String matricula, String fecha, int kilometros, double precio) {
+    public turismo(int n_puertas, String marca, String matricula, LocalDate fecha, int kilometros, double precio) {
         super(marca, matricula, fecha, kilometros, precio);
         this.n_puertas = n_puertas;
     }

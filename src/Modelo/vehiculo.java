@@ -5,18 +5,21 @@
  */
 package Modelo;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author artairg
  */
-public abstract class vehiculo {
-    String marca,matricula,fecha;
+public abstract class vehiculo implements Comparable<vehiculo>{
+    String marca,matricula;
     int kilometros;
     double precio;
+    LocalDate fecha;  
     public vehiculo() {
     }
 
-    public vehiculo(String marca, String matricula, String fecha, int kilometros, double precio) {
+    public vehiculo(String marca, String matricula, LocalDate fecha, int kilometros, double precio) {
         this.marca = marca;
         this.matricula = matricula;
         this.fecha = fecha;
@@ -40,11 +43,11 @@ public abstract class vehiculo {
         this.matricula = matricula;
     }
 
-    public String getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -76,4 +79,7 @@ public abstract class vehiculo {
         return "vehiculo{" + "marca=" + marca + ", matricula=" + matricula + ", fecha=" + fecha + ", kilometros=" + kilometros + ", precio=" + precio + '}';
     }
     
+    public int compareTo(vehiculo o) {
+        return fecha.compareTo(o.fecha);
+    }
 }
